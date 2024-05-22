@@ -1,3 +1,5 @@
+using System.Security.Cryptography.X509Certificates;
+
 namespace DesafioProjetoHospedagem.Models
 {
     public class Reserva
@@ -15,16 +17,18 @@ namespace DesafioProjetoHospedagem.Models
 
         public void CadastrarHospedes(List<Pessoa> hospedes)
         {
-            // TODO: Verificar se a capacidade é maior ou igual ao número de hóspedes sendo recebido
-            // *IMPLEMENTE AQUI*
-            if (true)
+            // Feat: Adicionada verificação de capacidade na suíte
+
+            bool capacidadeDaSuite = Suite.Capacidade >= hospedes.Count();
+
+            if (capacidadeDaSuite)
             {
                 Hospedes = hospedes;
             }
             else
             {
-                // TODO: Retornar uma exception caso a capacidade seja menor que o número de hóspedes recebido
-                // *IMPLEMENTE AQUI*
+                // Feat: Adicionada Exception para quando a capacidade for exercida
+                throw new Exception("Quantidade de hóspedes é maior que a capacidade da suíte");
             }
         }
 
@@ -35,23 +39,22 @@ namespace DesafioProjetoHospedagem.Models
 
         public int ObterQuantidadeHospedes()
         {
-            // TODO: Retorna a quantidade de hóspedes (propriedade Hospedes)
-            // *IMPLEMENTE AQUI*
-            return 0;
+            // Feat: Adicionado retorno com a quantidade de hóspedes
+            return Hospedes.Count;
         }
 
         public decimal CalcularValorDiaria()
         {
-            // TODO: Retorna o valor da diária
+            // Feat: Calculando diária de acordo com a quantidade de dias reservados
             // Cálculo: DiasReservados X Suite.ValorDiaria
-            // *IMPLEMENTE AQUI*
-            decimal valor = 0;
+            decimal valor = DiasReservados * Suite.ValorDiaria;
 
-            // Regra: Caso os dias reservados forem maior ou igual a 10, conceder um desconto de 10%
-            // *IMPLEMENTE AQUI*
-            if (true)
+            // Feat: Adicionado cálculo de 10% para quando a quantidade de dias reservados for igual ou maior que 10 
+            bool verificarDiasReservados = DiasReservados >= 10;
+
+            if (verificarDiasReservados)
             {
-                valor = 0;
+                valor -= valor * 0.1M;
             }
 
             return valor;
